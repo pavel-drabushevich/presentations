@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>RethinkDB - How to make your application realtime</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="shower/themes/material/styles/screen-16x10.css">
+</head>
+<body class="shower list">
+	<header class="caption">
+		<h1>RethinkDB - How to make your application realtime</h1>
+		<p>Pavel Drobushevich</p>
+	</header>
+	<section class="slide shout">
+		<div><h2>RethinkDB - web scale json storage</h2></div>
+	</section>
+	<section class="slide">
+		<h2><s>API</s> SDK</h2>
+		<pre>
+			<code><mark class="comment">// javascript</mark></code>
+			<code>r.table('moviesUnique').orderBy(r.desc('rank')).limit(10)</code>
+			<code><mark class="comment">// python</mark></code>
+			<code>r.table('moviesUnique').order_by(r.desc('rank')).limit(10)</code>
+		</pre>
+	</section>
+	<section class="slide" id="reactive">
+		<h2>One more thing...</h2>
+		<pre>
+			<code>connect((r, c) => {</code>
+			<code>  r.table('turtles').changes().run(c, (err, cursor) => {</code>
+			<code>    cursor.each((err, row) => {</code>
+			<code>      console.log(JSON.stringify(row, null, 2));</code>
+			<code>    });</code>
+			<code>  });</code>
+			<code>});</code>
+			<code><mark class="comment">// r.table('turtles').insert({message: 'Hello!'}).run(c);</mark></code>
+		</pre>
+	</section>
+
+	<section class="slide">
+		<h2>Links</h2>
+		<ul>
+			<li><a href="http://ctocast.com/post/135797772403/ctocast-17-slava-akhmechet-rethinkdb">CTO cast</a></li>
+			<li><a href="http://devzen.ru/episode-0076/">devzen</a></li>
+			<li><a href="https://aphyr.com/posts/329-jepsen-rethinkdb-2-1-5">Jepsen test part 1</a></li>
+			<li><a href="https://aphyr.com/posts/330-jepsen-rethinkdb-2-2-3-reconfiguration">Jepsen test part 2</a></li>
+		</ul>
+	</section>
+
+	<p class="badge">
+		<a href="https://github.com/pavel-drobushevich/presentations">Fork me on GitHub</a>
+	</p>
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"></div>
+	<script src="shower/shower.min.js"></script>
+	<script src="scripts/bundle.js"></script>
+	<script src="scripts/functions.js"></script>
+	<script src="scripts/registry.js"></script>
+</body>
+</html>
