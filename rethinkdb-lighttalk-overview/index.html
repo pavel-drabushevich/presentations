@@ -28,13 +28,14 @@
 		<h2>One more thing...</h2>
 		<pre>
 			<code>connect((r, c) => {</code>
-			<code>  r.table('turtles').changes().run(c, (err, cursor) => {</code>
-			<code>    cursor.each((err, row) => {</code>
-			<code>      console.log(JSON.stringify(row, null, 2));</code>
-			<code>    });</code>
+			<code>  r.table('messages').filter({author: 'Tom'}).changes()</code>
+			<code>    .run(c, (err, cursor) => {</code>
+			<code>      cursor.each((err, row) => {</code>
+			<code>        console.log(row.new_val.text);</code>
+			<code>      });</code>
 			<code>  });</code>
 			<code>});</code>
-			<code><mark class="comment">// r.table('turtles').insert({message: 'Hello!'}).run(c);</mark></code>
+			<code><mark class="comment">// r.table('messages').insert({author: 'Tom', message: 'Hello!'}).run(c);</mark></code>
 		</pre>
 	</section>
 
@@ -58,7 +59,5 @@
 	<div class="progress"></div>
 	<script src="shower/shower.min.js"></script>
 	<script src="scripts/bundle.js"></script>
-	<script src="scripts/functions.js"></script>
-	<script src="scripts/registry.js"></script>
 </body>
 </html>
